@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoicr</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- rrweb: records every DOM mutation, click, and scroll in the session.
+       inlineStylesheet:true captures Tailwind's CDN styles so the replay
+       renders correctly without needing network access. -->
+  <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
+  <script>
+    window.__rrweb_events__ = [];
+    rrweb.record({
+      emit: function (event) { window.__rrweb_events__.push(event); },
+      inlineStylesheet: true,
+    });
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+<div class="flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-56 bg-white border-r border-gray-200 flex flex-col shrink-0">
+    <div class="h-14 flex items-center px-4 border-b border-gray-200 gap-2">
+      <div class="w-7 h-7 rounded-md bg-blue-600 flex items-center justify-center text-white text-xs font-bold select-none">I</div>
+      <span class="font-semibold text-gray-900 text-sm">Invoicr</span>
+    </div>
+    <nav class="flex-1 px-2 py-3 space-y-0.5 text-sm">
+      <a href="#/dashboard"       class="nav-link flex items-center gap-2 px-3 py-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Dashboard
+      </a>
+      <a href="#/invoices"         class="nav-link flex items-center gap-2 px-3 py-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Invoices
+      </a>
+      <a href="#/settings/billing" class="nav-link flex items-center gap-2 px-3 py-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="p-3 border-t border-gray-200">
+      <div class="flex items-center gap-2 px-2 py-1.5">
+        <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 text-xs font-semibold">SC</div>
+        <div class="min-w-0">
+          <p class="text-xs font-medium text-gray-900 truncate">Sarah Chen</p>
+          <p class="text-xs text-gray-400 truncate">sarah@acme.co</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1 overflow-auto">
+
+    <!-- ── Dashboard ───────────────────────────────────────────── -->
+    <div class="page hidden" data-page="/dashboard">
+      <div class="p-8">
+        <h1 class="text-xl font-semibold mb-1">Dashboard</h1>
+        <p class="text-sm text-gray-500 mb-6">Welcome back, Sarah.</p>
+        <div class="grid grid-cols-3 gap-4 mb-8">
+          <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Outstanding</p>
+            <p class="text-2xl font-bold text-gray-900">$12,400</p>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Paid this month</p>
+            <p class="text-2xl font-bold text-gray-900">$8,200</p>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Overdue</p>
+            <p class="text-2xl font-bold text-red-500">$3,100</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <h2 class="text-sm font-semibold mb-4">Recent activity</h2>
+          <div class="space-y-3 text-sm text-gray-600">
+            <div class="flex justify-between"><span>INV-042 paid by Acme Corp</span><span class="text-gray-400">2h ago</span></div>
+            <div class="flex justify-between"><span>INV-041 sent to Startup.io</span><span class="text-gray-400">Yesterday</span></div>
+            <div class="flex justify-between"><span>INV-040 overdue — BigCorp</span><span class="text-red-400">3 days ago</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Invoices list ───────────────────────────────────────── -->
+    <div class="page hidden" data-page="/invoices">
+      <div class="p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="text-xl font-semibold mb-1">Invoices</h1>
+            <p class="text-sm text-gray-500">3 invoices</p>
+          </div>
+          <a href="#/invoices/new" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            New Invoice
+          </a>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="text-left px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Invoice</th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Client</th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Amount</th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr class="hover:bg-gray-50"><td class="px-4 py-3 font-medium">INV-042</td><td class="px-4 py-3 text-gray-600">Acme Corp</td><td class="px-4 py-3">$4,200</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Paid</span></td></tr>
+              <tr class="hover:bg-gray-50"><td class="px-4 py-3 font-medium">INV-041</td><td class="px-4 py-3 text-gray-600">Startup.io</td><td class="px-4 py-3">$1,800</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-yellow-100 text-yellow-700">Sent</span></td></tr>
+              <tr class="hover:bg-gray-50"><td class="px-4 py-3 font-medium">INV-040</td><td class="px-4 py-3 text-gray-600">BigCorp</td><td class="px-4 py-3">$3,100</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700">Overdue</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── New invoice form (BUG: silent save failure) ─────────── -->
+    <div class="page hidden" data-page="/invoices/new">
+      <div class="p-8 max-w-xl">
+        <div class="flex items-center gap-2 mb-6">
+          <a href="#/invoices" class="text-gray-400 hover:text-gray-600 text-sm">Invoices</a>
+          <span class="text-gray-300">/</span>
+          <span class="text-sm text-gray-900 font-medium">New invoice</span>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 class="font-semibold mb-5">Invoice details</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1">Client name</label>
+              <input id="invoice-client" type="text" placeholder="e.g. Acme Corp"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1">Amount (USD)</label>
+              <input id="invoice-amount" type="number" placeholder="0.00"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1">Due date</label>
+              <input type="date" value="2026-05-01"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+          </div>
+          <div class="mt-6 flex items-center gap-3">
+            <button id="save-invoice"
+              class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              Save Invoice
+            </button>
+            <a href="#/invoices" class="text-sm text-gray-500 hover:text-gray-700">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Billing settings (BUG: dead upgrade button) ─────────── -->
+    <div class="page hidden" data-page="/settings/billing">
+      <div class="p-8 max-w-2xl">
+        <h1 class="text-xl font-semibold mb-1">Billing</h1>
+        <p class="text-sm text-gray-500 mb-6">Manage your plan and payment details.</p>
+        <div class="bg-white rounded-xl border border-gray-200 p-6 mb-4">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="inline-block px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded-full mb-2">Free plan</span>
+              <h2 class="font-semibold text-gray-900">Free</h2>
+              <p class="text-sm text-gray-500 mt-1">Up to 5 invoices/month. No payment methods.</p>
+            </div>
+            <button id="upgrade-btn"
+              class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+              Upgrade Plan
+            </button>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 class="font-semibold mb-4">Payment method</h2>
+          <p class="text-sm text-gray-400 italic">No payment method on file.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Onboarding step 1 ───────────────────────────────────── -->
+    <div class="page hidden" data-page="/onboarding/step-1">
+      <div class="p-8 max-w-lg mx-auto mt-12">
+        <div class="text-center mb-8">
+          <div class="flex justify-center gap-2 mb-6">
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-semibold flex items-center justify-center">1</div>
+            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-sm font-semibold flex items-center justify-center">2</div>
+            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-sm font-semibold flex items-center justify-center">3</div>
+          </div>
+          <h1 class="text-2xl font-bold mb-2">Welcome to Invoicr</h1>
+          <p class="text-gray-500 text-sm">Let's get you set up in 3 quick steps.</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-6 text-center">
+          <p class="text-sm text-gray-600 mb-6">Tell us about your business so we can personalise your experience.</p>
+          <input type="text" placeholder="Your company name" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <a href="#/onboarding/step-2" class="inline-block px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Next →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Onboarding step 2 ───────────────────────────────────── -->
+    <div class="page hidden" data-page="/onboarding/step-2">
+      <div class="p-8 max-w-lg mx-auto mt-12">
+        <div class="text-center mb-8">
+          <div class="flex justify-center gap-2 mb-6">
+            <div class="w-8 h-8 rounded-full bg-blue-200 text-blue-600 text-sm font-semibold flex items-center justify-center">✓</div>
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-semibold flex items-center justify-center">2</div>
+            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-sm font-semibold flex items-center justify-center">3</div>
+          </div>
+          <h1 class="text-2xl font-bold mb-2">Add your first client</h1>
+          <p class="text-gray-500 text-sm">Who do you invoice most often?</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-6 text-center">
+          <input type="text" placeholder="Client name" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="email" placeholder="Client email" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <a href="#/onboarding/step-3" class="inline-block px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Next →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Onboarding step 3 (BUG: OAuth popup blocked) ───────── -->
+    <div class="page hidden" data-page="/onboarding/step-3">
+      <div class="p-8 max-w-lg mx-auto mt-12">
+        <div class="text-center mb-8">
+          <div class="flex justify-center gap-2 mb-6">
+            <div class="w-8 h-8 rounded-full bg-blue-200 text-blue-600 text-sm font-semibold flex items-center justify-center">✓</div>
+            <div class="w-8 h-8 rounded-full bg-blue-200 text-blue-600 text-sm font-semibold flex items-center justify-center">✓</div>
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-semibold flex items-center justify-center">3</div>
+          </div>
+          <h1 class="text-2xl font-bold mb-2">Connect your tools</h1>
+          <p class="text-gray-500 text-sm">Link your accounting software to sync transactions automatically.</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <div class="flex items-center justify-between py-3 border-b border-gray-100">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center text-green-700 font-bold text-sm">Q</div>
+              <div>
+                <p class="text-sm font-medium">QuickBooks</p>
+                <p class="text-xs text-gray-400">Sync invoices &amp; expenses</p>
+              </div>
+            </div>
+            <button id="connect-tool"
+              class="px-3 py-1.5 border border-blue-600 text-blue-600 text-xs font-medium rounded-lg hover:bg-blue-50 transition-colors">
+              Connect your tool
+            </button>
+          </div>
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center text-orange-700 font-bold text-sm">X</div>
+              <div>
+                <p class="text-sm font-medium">Xero</p>
+                <p class="text-xs text-gray-400">Sync invoices &amp; payments</p>
+              </div>
+            </div>
+            <button class="px-3 py-1.5 border border-gray-300 text-gray-500 text-xs font-medium rounded-lg hover:bg-gray-50 transition-colors">Connect</button>
+          </div>
+        </div>
+        <p class="text-center text-xs text-gray-400 mt-4"><a href="#/dashboard" class="underline hover:text-gray-600">Skip for now</a></p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // ── Hash router ──────────────────────────────────────────────────────────
+  function navigate() {
+    var hash = window.location.hash;
+    var path = hash ? hash.slice(1) : '/dashboard';
+
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.add('hidden'); });
+
+    var target = document.querySelector('.page[data-page="' + path + '"]');
+    if (target) {
+      target.classList.remove('hidden');
+    } else {
+      document.querySelector('.page[data-page="/dashboard"]').classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.nav-link').forEach(function(l) {
+      l.classList.remove('bg-gray-100', 'font-medium', 'text-gray-900');
+      l.classList.add('text-gray-600');
+    });
+    var active = document.querySelector('.nav-link[href="' + (hash || '#/dashboard') + '"]');
+    if (active) {
+      active.classList.add('bg-gray-100', 'font-medium', 'text-gray-900');
+      active.classList.remove('text-gray-600');
+    }
+  }
+
+  window.addEventListener('hashchange', navigate);
+  window.addEventListener('load', navigate);
+
+  // ── BUG 1: Save invoice fails silently ──────────────────────────────────
+  document.getElementById('save-invoice').addEventListener('click', async function () {
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    try {
+      var res = await fetch('/api/invoices', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client: document.getElementById('invoice-client').value,
+          amount: document.getElementById('invoice-amount').value,
+        }),
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status + ': Failed to save invoice');
+      window.location.hash = '#/invoices';
+    } catch (e) {
+      console.error('Invoice save error: ' + e.message);
+      // BUG: error swallowed — no toast, no inline message, nothing shown to user
+      btn.disabled = false;
+      btn.textContent = 'Save Invoice';
+    }
+  });
+
+  // ── BUG 2: Upgrade button references a non-existent modal ───────────────
+  document.getElementById('upgrade-btn').addEventListener('click', function () {
+    var modal = document.getElementById('upgrade-modal'); // always null — element never created
+    if (modal) modal.classList.remove('hidden');
+    // No error thrown, no feedback — button appears to do nothing
+  });
+
+  // ── BUG 3: OAuth popup blocked with no fallback ──────────────────────────
+  document.getElementById('connect-tool').addEventListener('click', function () {
+    var popup = window.open('/oauth/quickbooks', 'oauth_popup', 'width=600,height=700');
+    if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+      console.error('OAuth popup blocked by browser — cannot complete QuickBooks authentication');
+    } else {
+      popup.close(); // simulate being blocked in production environments
+      console.error('OAuth popup blocked by browser — cannot complete QuickBooks authentication');
+    }
+    // BUG: no fallback UI, no instructions shown to the user
+  });
+</script>
+
+<!-- PostHog (optional — only initialises when __POSTHOG_KEY__ is injected by capture_fixture.py) -->
+<script>
+  if (window.__POSTHOG_KEY__) {
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","").replace("https://","https://cdn.")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+" (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||(window.posthog=[]));
+    posthog.init(window.__POSTHOG_KEY__, {
+      api_host: window.__POSTHOG_HOST__ || 'https://us.i.posthog.com',
+      person_profiles: 'identified_only',
+    });
+    if (window.__USER_EMAIL__) {
+      posthog.identify(window.__USER_EMAIL__, { email: window.__USER_EMAIL__ });
+    }
+  }
+</script>
+
+</body>
+</html>

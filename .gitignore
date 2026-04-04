@@ -1,0 +1,23 @@
+# Environment
+.env
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated reports (re-created by run_demo.py / record_session.py)
+report.html
+report.json
+report.md
+
+# Playwright
+playwright-report/
+test-results/
+
+# macOS
+.DS_Store
+
+lucent.pdf
